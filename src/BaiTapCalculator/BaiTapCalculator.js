@@ -17,7 +17,6 @@ export default class BaiTapCalculator extends Component {
     calculateQueue= (value) =>{
         if (this.input !== 0) {
             this.input = parseFloat(this.input);
-            console.log("input: ",this.input)
     
             this.addToQueue(this.input);
         }
@@ -51,8 +50,6 @@ export default class BaiTapCalculator extends Component {
         else {
             this.inputChangedHandler(answer.toString());
             this.input = answer;
-            console.log("answer: ",this.input);
-            console.log(typeof(this.input))
             this.queue = [];
         }
     }
@@ -71,13 +68,10 @@ export default class BaiTapCalculator extends Component {
     numericButton=(e) =>{
         let value = e.target.name;
         let screenValue=document.getElementById("answer").getAttribute("value");
-        console.log(screenValue)
-        console.log(typeof(screenValue))
         // Nếu error hoặc màn hình đang hiển thị "" --> reset màn hình thành rỗng
-        if (screenValue === "ERROR" || (document.getElementById("answer").getAttribute("value") === "" && value !== "."))
+        if (screenValue === "ERROR" || (screenValue === "" && value !== "."))
         {
-            console.log("hahaa")
-            this.inputChangedHandler("HAhaha"); 
+            this.inputChangedHandler("");
         }
     
         // Khi màn hình rỗng, ta kiểm tra input nhập vào có phải là số đồng thời kiểm tra ký tự vừa nhập trước input
@@ -86,7 +80,6 @@ export default class BaiTapCalculator extends Component {
             this.input += value;
             let resultClick = this.state.result.concat(value);
             this.inputChangedHandler(resultClick);
-            console.log(this.input)
         }
     }
     
@@ -95,11 +88,8 @@ export default class BaiTapCalculator extends Component {
         let value= e.target.name;
         if (this.input !== 0 && this.input !== "-") {
             this.input = parseFloat(this.input);
-            console.log("this input: ",typeof(this.input))
-            console.log(this.queue)
             this.addToQueue(this.input);
             this.addToQueue(value);
-            console.log("add to queue ",this.queue);
             let resultClick = this.state.result.concat(value);
             this.inputChangedHandler(resultClick);
             this.input = 0;
@@ -170,7 +160,7 @@ export default class BaiTapCalculator extends Component {
 
                 <div className="keypad">
                     <button className="highlight" onClick={this.clearAll} id="clear">Clear</button>
-                    <button className="highlight" onClick={this.backspace} id="backspace">C</button>
+                    <button className="highlight" onClick={this.backspace} id="backspace">CE</button>
                     <button className="highlight" name="/" onClick={this.operatorButton}>&divide;</button>
                     <button name="7" onClick={this.numericButton}>7</button>
                     <button name="8" onClick={this.numericButton}>8</button>
